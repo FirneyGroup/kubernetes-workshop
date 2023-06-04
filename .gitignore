@@ -1,0 +1,7 @@
+*.tfstate
+*.backup
+*.hcl
+*.info
+*.tfvars
+helm/*
+terraform/.terraform/*
