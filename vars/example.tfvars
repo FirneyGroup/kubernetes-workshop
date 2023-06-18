@@ -1,5 +1,7 @@
 # Project ID to used for project creation
 create_new_gcp_project  = false
+
+# if using existing project replace with the correct proejct ID
 gcp_project_id          = "firney-workshop"
 gcp_region              = "europe-west2"
 gcp_zone                = "europe-west2-a"

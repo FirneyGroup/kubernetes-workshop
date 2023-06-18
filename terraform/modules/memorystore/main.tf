@@ -26,12 +26,12 @@ resource "google_compute_global_address" "service_range" {
   depends_on    = [google_project_service.services]
 }
 
-resource "google_service_networking_connection" "private_service_connection" {
-  network                 = var.vpc
-  service                 = "servicenetworking.googleapis.com"
-  reserved_peering_ranges = [google_compute_global_address.service_range.name]
-  depends_on    = [ google_compute_global_address.service_range ]
-}
+# resource "google_service_networking_connection" "private_service_connection" {
+#   network                 = var.vpc
+#   service                 = "servicenetworking.googleapis.com"
+#   reserved_peering_ranges = [google_compute_global_address.service_range.name]
+#   depends_on    = [ google_compute_global_address.service_range ]
+# }
 
 resource "google_redis_instance" "cache" {
   name               = var.redis.name
@@ -44,7 +44,7 @@ resource "google_redis_instance" "cache" {
   connect_mode       = "PRIVATE_SERVICE_ACCESS"
   redis_version      = var.redis.version
   display_name       = "Terraform Test Instance"
-  depends_on         = [google_service_networking_connection.private_service_connection,
-  google_project_service.services]
+  depends_on         = [ google_project_service.services]
+  # google_service_networking_connection
 
 }
