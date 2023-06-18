@@ -4,6 +4,12 @@ variable "gcp_project_id" {}
 # GCP Billing ID used for project billing
 variable "gcp_billing_id" {}
 
+variable "create_new_gcp_project" {
+  type        = bool
+  default     = false
+  description = "Automatically create a new gcp project"
+}
+
 # Region to deploy resources in
 variable "gcp_region" {
   type        = string
