@@ -5,6 +5,7 @@ variable "services" {
   type = list(any)
   default = [
     "sqladmin.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
   ]
 }
 

@@ -7,6 +7,7 @@ variable "services" {
     "compute.googleapis.com",
     "container.googleapis.com",
     "iamcredentials.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
   ]
 }
 
