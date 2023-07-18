@@ -3,8 +3,8 @@ provider "google" {}
 # list of apis to enable
 locals {
     services  = [
-    "sqladmin.googleapis.com",
-    "cloudresourcemanager.googleapis.com",
+      "sqladmin.googleapis.com",
+      "cloudresourcemanager.googleapis.com"
   ]
 }
 

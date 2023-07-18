@@ -3,8 +3,8 @@ provider "google" {}
 # list of apis to enable
 locals {
     services  = [
-    "servicenetworking.googleapis.com",
-    "cloudresourcemanager.googleapis.com"
+        "servicenetworking.googleapis.com",
+        "cloudresourcemanager.googleapis.com"
   ]
 }
 

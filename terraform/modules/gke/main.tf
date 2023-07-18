@@ -3,10 +3,10 @@ provider "google" {}
 # list of required APIs
 locals {
     services  = [
-    "compute.googleapis.com",
-    "container.googleapis.com",
-    "iamcredentials.googleapis.com",
-    "cloudresourcemanager.googleapis.com",
+      "compute.googleapis.com",
+      "container.googleapis.com",
+      "iamcredentials.googleapis.com",
+      "cloudresourcemanager.googleapis.com"
   ]
 }
 

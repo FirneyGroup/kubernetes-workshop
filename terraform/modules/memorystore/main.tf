@@ -3,7 +3,7 @@ provider "google" {}
 # list of apis to enable
 locals {
     services  = [
-    "redis.googleapis.com"
+      "redis.googleapis.com"
   ]
 }
 

@@ -3,9 +3,9 @@ provider "google" {}
 # list of apis to enable
 locals {
     services  = [
-            "sqladmin.googleapis.com",
-            "iamcredentials.googleapis.com",
-        ]
+        "sqladmin.googleapis.com",
+        "iamcredentials.googleapis.com",
+    ]
 }
 
 resource "google_project_service" "services" {

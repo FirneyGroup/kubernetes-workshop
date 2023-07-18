@@ -2,7 +2,7 @@ provider "google" {}
 
 locals {
     services  = [
-    "servicenetworking.googleapis.com"
+      "servicenetworking.googleapis.com"
   ]
 }
 
