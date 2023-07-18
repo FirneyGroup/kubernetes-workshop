@@ -38,30 +38,29 @@ module "privateconnection" {
   region         = var.gcp_region
   zone           = var.gcp_zone
   peering_ranges = [
-      module.internalpeering.sql,  
-      module.internalpeering.redis
+      module.internalpeering.peering_range
   ]
   depends_on     = [ module.internalpeering ]
 }
 
 module "cloudsql" {
-  source     = "./modules/cloudsql"
-  project    = local.project_id
-  vpc        = module.network.vpc
-  region     = var.gcp_region
-  zone       = var.gcp_zone
-  ip_range   = module.internalpeering.sql
-  depends_on = [ module.privateconnection ]
+  source        = "./modules/cloudsql"
+  project       = local.project_id
+  vpc           = module.network.vpc
+  region        = var.gcp_region
+  zone          = var.gcp_zone
+  peering_range = module.internalpeering.peering_range
+  depends_on    = [ module.privateconnection ]
 }
 
 module "redis" {
-  source     = "./modules/memorystore"
-  project    = local.project_id
-  vpc        = module.network.vpc
-  region     = var.gcp_region
-  zone       = var.gcp_zone
-  ip_range   = module.internalpeering.redis
-  depends_on = [ module.privateconnection ]
+  source        = "./modules/memorystore"
+  project       = local.project_id
+  vpc           = module.network.vpc
+  region        = var.gcp_region
+  zone          = var.gcp_zone
+  peering_range = module.internalpeering.peering_range
+  depends_on    = [ module.privateconnection ]
 }
 
 module "gke" {

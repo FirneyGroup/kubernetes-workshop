@@ -1,9 +1,8 @@
 provider "google" {}
 
 # list of required APIs
-variable "services" {
-  type = list(any)
-  default = [
+locals {
+    services  = [
     "compute.googleapis.com",
     "container.googleapis.com",
     "iamcredentials.googleapis.com",
@@ -13,7 +12,7 @@ variable "services" {
 
 # Ensure the relevant APIs are enabled
 resource "google_project_service" "services" {
-  for_each                   = toset(var.services)
+  for_each                   = toset(local.services)
   project                    = var.project
   service                    = each.key
   disable_dependent_services = false

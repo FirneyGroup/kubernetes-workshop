@@ -1,16 +1,15 @@
 provider "google" {}
 
 # list of apis to enable
-variable "services" {
-  type = list(any)
-  default = [
+locals {
+    services  = [
     "servicenetworking.googleapis.com",
     "compute.googleapis.com"
   ]
 }
 
 resource "google_project_service" "services" {
-  for_each                   = toset(var.services)
+  for_each                   = toset(local.services)
   project                    = var.project
   service                    = each.key
   disable_dependent_services = false

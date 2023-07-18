@@ -1,4 +1,8 @@
-variable "project" {}
+variable "project" {
+    type        = string
+    description = "Google Cloud Project to create Workload Identity Service Account"
+}
+
 variable "vpc" {}
 variable "subnet" {}
 variable "region" {}

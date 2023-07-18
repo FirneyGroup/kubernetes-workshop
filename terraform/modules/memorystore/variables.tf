@@ -1,8 +1,12 @@
-//https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/redis_instance
-variable "project" {}
+variable "project" {
+    type        = string
+    description = "Google Cloud Project to create Workload Identity Service Account"
+}
+
 variable "vpc" {}
 variable "region" {}
 variable "zone" {}
+variable "peering_range" {}
 
 variable "redis" {
   type = object({
@@ -19,8 +23,3 @@ variable "redis" {
     memory_size_gb = 1
   }
 }
-
-variable "ip_range" {}
-
-
-

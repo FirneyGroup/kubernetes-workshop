@@ -1,38 +1,20 @@
 provider "google" {}
 
 # list of apis to enable
-variable "services" {
-  type = list(any)
-  default = [
+locals {
+    services  = [
     "sqladmin.googleapis.com",
     "cloudresourcemanager.googleapis.com",
   ]
 }
 
 resource "google_project_service" "services" {
-  for_each                   = toset(var.services)
+  for_each                   = toset(local.services)
   project                    = var.project
   service                    = each.key
   disable_dependent_services = false
   disable_on_destroy         = false
 }
-
-# resource "google_compute_global_address" "sql" {
-#   name          = var.ip_name
-#   project       = var.project
-#   purpose       = "VPC_PEERING"
-#   address_type  = "INTERNAL"
-#   prefix_length = 16
-#   network       = var.vpc
-#   depends_on    = [google_project_service.services]
-# }
-
-# resource "google_service_networking_connection" "private" {
-#   network                 = var.vpc
-#   service                 = "servicenetworking.googleapis.com"
-#   reserved_peering_ranges = [google_compute_global_address.sql.name]
-#   depends_on              = [google_project_service.services]
-# }
 
 resource "google_sql_database_instance" "instance" {
   name                = var.sql.name
@@ -46,7 +28,7 @@ resource "google_sql_database_instance" "instance" {
     ip_configuration {
       ipv4_enabled          = false
       private_network       = var.vpc
-      allocated_ip_range    = var.ip_range
+      allocated_ip_range    = var.peering_range
     }
     location_preference {
       zone = var.zone
