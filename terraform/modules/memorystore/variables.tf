@@ -20,5 +20,7 @@ variable "redis" {
   }
 }
 
+variable "ip_range" {}
+
 
 

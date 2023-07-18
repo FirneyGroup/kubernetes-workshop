@@ -5,3 +5,5 @@ output "redis_host" {
 output "redis_port" {
   value = google_redis_instance.cache.port
 }
+
+

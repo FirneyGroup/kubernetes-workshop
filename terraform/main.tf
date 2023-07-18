@@ -1,6 +1,7 @@
 locals {
   project_id = var.create_new_gcp_project == false ? "${var.gcp_project_id}": "${var.gcp_project_id}-${random_string.random.result}"
 }
+
 resource "random_string" "random" {
   length  = 5
   special = false
@@ -22,20 +23,45 @@ module "network" {
   zone    = var.gcp_zone
 }
 
-module "cloudsql" {
-  source  = "./modules/cloudsql"
+module "internalpeering" {
+  source  = "./modules/internalpeering"
   project = local.project_id
   vpc     = module.network.vpc
   region  = var.gcp_region
   zone    = var.gcp_zone
 }
 
+module "privateconnection" {
+  source         = "./modules/privateconnection"
+  project        = local.project_id
+  vpc            = module.network.vpc
+  region         = var.gcp_region
+  zone           = var.gcp_zone
+  peering_ranges = [
+      module.internalpeering.sql,  
+      module.internalpeering.redis
+  ]
+  depends_on     = [ module.internalpeering ]
+}
+
+module "cloudsql" {
+  source     = "./modules/cloudsql"
+  project    = local.project_id
+  vpc        = module.network.vpc
+  region     = var.gcp_region
+  zone       = var.gcp_zone
+  ip_range   = module.internalpeering.sql
+  depends_on = [ module.privateconnection ]
+}
+
 module "redis" {
-  source  = "./modules/memorystore"
-  project = local.project_id
-  vpc     = module.network.vpc
-  region  = var.gcp_region
-  zone    = var.gcp_zone
+  source     = "./modules/memorystore"
+  project    = local.project_id
+  vpc        = module.network.vpc
+  region     = var.gcp_region
+  zone       = var.gcp_zone
+  ip_range   = module.internalpeering.redis
+  depends_on = [ module.privateconnection ]
 }
 
 module "gke" {

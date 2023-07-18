@@ -16,16 +16,6 @@ resource "google_project_service" "services" {
   disable_on_destroy         = false
 }
 
-resource "google_compute_global_address" "service_range" {
-  name          = "redis"
-  project       = var.project
-  purpose       = "VPC_PEERING"
-  address_type  = "INTERNAL"
-  prefix_length = 16
-  network       = var.vpc
-  depends_on    = [google_project_service.services]
-}
-
 # resource "google_service_networking_connection" "private_service_connection" {
 #   network                 = var.vpc
 #   service                 = "servicenetworking.googleapis.com"
@@ -41,10 +31,10 @@ resource "google_redis_instance" "cache" {
   tier               = var.redis.tier
   memory_size_gb     = var.redis.memory_size_gb
   authorized_network = var.vpc
+  reserved_ip_range  = var.ip_range
   connect_mode       = "PRIVATE_SERVICE_ACCESS"
   redis_version      = var.redis.version
   display_name       = "Terraform Test Instance"
   depends_on         = [ google_project_service.services]
   # google_service_networking_connection
-
 }

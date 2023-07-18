@@ -21,11 +21,7 @@ variable "sql" {
   }
 }
 
-
-variable "ip_name" {
-  type    = string
-  default = "private-ip-address"
-}
+variable "ip_range" {}
 
 
 

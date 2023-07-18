@@ -17,22 +17,22 @@ resource "google_project_service" "services" {
   disable_on_destroy         = false
 }
 
-resource "google_compute_global_address" "sql" {
-  name          = var.ip_name
-  project       = var.project
-  purpose       = "VPC_PEERING"
-  address_type  = "INTERNAL"
-  prefix_length = 16
-  network       = var.vpc
-  depends_on    = [google_project_service.services]
-}
+# resource "google_compute_global_address" "sql" {
+#   name          = var.ip_name
+#   project       = var.project
+#   purpose       = "VPC_PEERING"
+#   address_type  = "INTERNAL"
+#   prefix_length = 16
+#   network       = var.vpc
+#   depends_on    = [google_project_service.services]
+# }
 
-resource "google_service_networking_connection" "private" {
-  network                 = var.vpc
-  service                 = "servicenetworking.googleapis.com"
-  reserved_peering_ranges = [google_compute_global_address.sql.name]
-  depends_on              = [google_project_service.services]
-}
+# resource "google_service_networking_connection" "private" {
+#   network                 = var.vpc
+#   service                 = "servicenetworking.googleapis.com"
+#   reserved_peering_ranges = [google_compute_global_address.sql.name]
+#   depends_on              = [google_project_service.services]
+# }
 
 resource "google_sql_database_instance" "instance" {
   name                = var.sql.name
@@ -40,16 +40,14 @@ resource "google_sql_database_instance" "instance" {
   region              = var.region
   database_version    = var.sql.version
   deletion_protection = false
-  depends_on          = [google_service_networking_connection.private]
 
   settings {
     tier = var.sql.size
     ip_configuration {
-      ipv4_enabled                                  = false
-      private_network                               = var.vpc
-      enable_private_path_for_google_cloud_services = true
+      ipv4_enabled          = false
+      private_network       = var.vpc
+      allocated_ip_range    = var.ip_range
     }
-
     location_preference {
       zone = var.zone
     }

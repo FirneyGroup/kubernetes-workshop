@@ -16,3 +16,4 @@ output "sql_user" {
 output "sql_pass" {
   value = var.sql.password
 }
+
