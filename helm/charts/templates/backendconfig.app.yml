@@ -1,0 +1,9 @@
+# Backend configuration
+# https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-configuration
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: {{ .Values.name }}-app-backend
+  namespace: {{ .Values.namespace }}
+spec:
+  timeoutSec: 120
