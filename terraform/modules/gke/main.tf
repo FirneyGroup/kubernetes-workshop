@@ -36,7 +36,6 @@ resource "google_container_cluster" "primary" {
   network                  = var.vpc
   subnetwork               = var.subnet
   remove_default_node_pool = true
-  initial_node_count       = var.cluster.nodepool.initial
   depends_on = [google_service_account.kubernetes]
 
   private_cluster_config {
@@ -78,7 +77,6 @@ resource "google_container_node_pool" "nodes" {
   location   = var.zone
   cluster    = google_container_cluster.primary.id
   depends_on = [google_container_cluster.primary]
-  node_count = var.cluster.nodepool.initial
 
   autoscaling {
     total_min_node_count = var.cluster.nodepool.min

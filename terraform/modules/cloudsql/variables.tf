@@ -15,6 +15,7 @@ variable "sql" {
     size     = string
     username = string
     password = string
+    database = string
   })
 
   default = {
@@ -23,6 +24,7 @@ variable "sql" {
     size     = "db-f1-micro"
     username = "workshop-user"
     password = "FirneyWorkshop!123"
+    database = "workshop-db"
   }
 }
 

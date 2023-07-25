@@ -34,7 +34,6 @@ variable "cluster" {
     type          = string
     nodepool = object({
       name        = string
-      initial     = number
       min         = number
       max         = number
       policy      = string
@@ -51,7 +50,6 @@ variable "cluster" {
     type          = "n1-standard-1"
     nodepool = {
       name        = "workshop-nodepool"
-      initial     = 1
       min         = 1
       max         = 2
       policy      = "BALANCED"

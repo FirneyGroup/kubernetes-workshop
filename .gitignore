@@ -5,3 +5,5 @@
 *.tfvars
 helm/*
 terraform/.terraform/*
+*.code-workspace
+TODO

@@ -25,3 +25,7 @@ output "sql_user" {
 output "sql_pass" {
   value = module.cloudsql.sql_pass
 }
+
+output "wi_sa_email" {
+    value = module.workloadidentity.wi_sa_email
+}

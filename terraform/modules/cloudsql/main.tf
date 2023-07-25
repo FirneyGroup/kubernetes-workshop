@@ -26,14 +26,20 @@ resource "google_sql_database_instance" "instance" {
   settings {
     tier = var.sql.size
     ip_configuration {
-      ipv4_enabled          = false
-      private_network       = var.vpc
-      allocated_ip_range    = var.peering_range
+      ipv4_enabled       = false
+      private_network    = var.vpc
+      allocated_ip_range = var.peering_range
     }
     location_preference {
       zone = var.zone
     }
   }
+}
+
+resource "google_sql_database" "database" {
+  name     = var.sql.database
+  project  = var.project
+  instance = google_sql_database_instance.instance.name
 }
 
 resource "google_sql_user" "users" {
