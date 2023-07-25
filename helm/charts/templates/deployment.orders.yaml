@@ -1,4 +1,5 @@
 # https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.name }}-orders
@@ -19,6 +20,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.name }}-orders
+      # annotation to force pod recreation for every helm upgrade  
       annotations:
         timestamp: {{ now | quote }}
     spec:

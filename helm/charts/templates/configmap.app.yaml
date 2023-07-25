@@ -6,4 +6,7 @@ metadata:
     namespace: {{ .Values.namespace }}
 data:
     REDIS_URL: {{ template "redisUrl" . }}
+    RABBITMQ_DEFAULT_HOST: {{ .Values.database.rabbitmq.host | quote }}
+    RABBITMQ_DEFAULT_PORT: {{ .Values.database.rabbitmq.port | quote }}
     RABBITMQ_DEFAULT_USER: {{ .Values.database.rabbitmq.user | quote }}
+    PYTHONPATH: /usr/src

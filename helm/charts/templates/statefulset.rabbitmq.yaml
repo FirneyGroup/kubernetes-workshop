@@ -25,6 +25,8 @@ spec:
             memory: 1Gi
             cpu: 600m
         envFrom:
+        - configMapRef:
+            name: {{ .Values.name }}-app-configs
         - secretRef:
             name: {{ .Values.name }}-rabbitmq-secrets
         volumeMounts:
