@@ -3,7 +3,8 @@
 *.hcl
 *.info
 *.tfvars
-helm/*
+helm/charts/values.yaml
+helm/demo/
 terraform/.terraform/*
 *.code-workspace
 TODO

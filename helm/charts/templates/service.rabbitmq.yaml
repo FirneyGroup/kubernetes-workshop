@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Values.namespace }}
+  name:  {{ .Values.name }}-rabbitmq-svc
+  annotations:
+spec:
+  ports:
+  - port: {{ .Values.database.rabbitmq.port }}
+    protocol: TCP
+  selector:
+    app:  {{ .Values.name }}-rabbitmq
+  type: ClusterIP

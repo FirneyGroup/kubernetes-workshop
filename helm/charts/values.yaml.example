@@ -1,0 +1,25 @@
+---
+name: "firney-workshop"
+namespace: "workshop"
+docker:
+  image:
+    orders: "firneygroup/fastapi-workshop-fastapi-order:5ec95d15fb5fc4422adf8153ee4de5044343a7a5"
+    fulfilment: "firneygroup/fastapi-workshop-click-fulfilment:5ec95d15fb5fc4422adf8153ee4de5044343a7a5"
+    rabbitmq: "rabbitmq:3-management"
+database:
+  postgres:
+    host: "<<< ADD POSTGRES IP >>>"
+    port: 5432
+    user: "workshop-user"
+    password: "FirneyWorkshop!123"
+    database: "workshop-db"
+  redis:
+    host: "<<< ADD REDIS IP >>>"
+    port: 6379
+    db: 1
+  rabbitmq:
+    host: "firney-workshop-rabbitmq-svc.workshop.svc.cluster.local"
+    user: "rabbitmq_user"
+    password: "FirneyRMQ123"
+    cookie: "HRUpERZ5BVYZn7J6"
+    port: "5672"

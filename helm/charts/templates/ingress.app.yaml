@@ -1,0 +1,18 @@
+# https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-configuration
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name:  {{ .Values.name }}-app-lb
+  namespace: {{ .Values.namespace }}
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.name }}-orders-svc
+            port:
+              number: 80

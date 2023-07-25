@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}-fulfilment
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.name }}-fulfilment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}-fulfilment
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}-fulfilment
+      annotations:
+        timestamp: {{ now | quote }}
+    spec:
+      containers:
+##############################
+# Fulfilment Container
+############################
+      - image: {{ .Values.docker.image.fulfilment }}
+        imagePullPolicy: Always
+        name: fulfilment
+        resources:
+          requests:
+            memory: 0.5Gi
+            cpu: 500m
+          limits:
+            memory: 1Gi
+            cpu: 600m
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.name }}-app-configs
+        - secretRef:
+            name: {{ .Values.name }}-app-secrets

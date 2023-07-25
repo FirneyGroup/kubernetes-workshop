@@ -1,0 +1,43 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}-orders
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.name }}-orders
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}-orders
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}-orders
+      annotations:
+        timestamp: {{ now | quote }}
+    spec:
+      containers:
+##############################
+# Orders Container
+############################
+      - image: {{ .Values.docker.image.orders }}
+        imagePullPolicy: Always
+        name: orders
+        resources:
+          requests:
+            memory: 0.5Gi
+            cpu: 500m
+          limits:
+            memory: 1Gi
+            cpu: 600m
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.name }}-app-configs
+        - secretRef:
+            name: {{ .Values.name }}-app-secrets
