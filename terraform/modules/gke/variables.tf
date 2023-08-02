@@ -36,6 +36,7 @@ variable "cluster" {
       name        = string
       min         = number
       max         = number
+      zones       = list(string)
       policy      = string
       preemptible = bool
     })
@@ -51,7 +52,8 @@ variable "cluster" {
     nodepool = {
       name        = "workshop-nodepool"
       min         = 1
-      max         = 2
+      max         = 5
+      zones       = []
       policy      = "BALANCED"
       preemptible = true
     }

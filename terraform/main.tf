@@ -96,6 +96,7 @@ module "gke" {
         max         = var.cluster_nodepool_max
         min         = var.cluster_nodepool_min
         policy      = "BALANCED"
+        zones       = var.cluster_nodepool_zones
         preemptible = var.cluster_nodepool_preemptible
       }
   }

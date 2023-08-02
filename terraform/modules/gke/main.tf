@@ -36,6 +36,7 @@ resource "google_container_cluster" "primary" {
   network                  = var.vpc
   subnetwork               = var.subnet
   remove_default_node_pool = true
+  initial_node_count       = 1
   depends_on = [google_service_account.kubernetes]
 
   private_cluster_config {
@@ -87,6 +88,8 @@ resource "google_container_node_pool" "nodes" {
   network_config {
     enable_private_nodes = true
   }
+
+  node_locations = var.cluster.nodepool.zones
 
   node_config {
     machine_type = var.cluster.type

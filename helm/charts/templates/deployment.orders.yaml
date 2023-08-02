@@ -7,14 +7,13 @@ metadata:
   labels:
     app: {{ .Values.name }}-orders
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: {{ .Values.name }}-orders
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
+      maxSurge: 0
       maxUnavailable: 1
   template:
     metadata:
@@ -24,13 +23,33 @@ spec:
       annotations:
         timestamp: {{ now | quote }}
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - {{ .Values.name }}-orders
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - {{ .Values.name }}-orders
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+            weight: 100
       containers:
-##############################
-# Orders Container
-############################
       - image: {{ .Values.docker.image.orders }}
-        imagePullPolicy: Always
+        imagePullPolicy: {{ .Values.docker.imagePullPolicy }}
         name: orders
+        ports:
+        - containerPort: 8000
         resources:
           requests:
             memory: 0.5Gi
@@ -43,3 +62,16 @@ spec:
             name: {{ .Values.name }}-app-configs
         - secretRef:
             name: {{ .Values.name }}-app-secrets
+        readinessProbe:
+          httpGet:
+            path: /api/health/check
+            port: 8000
+          failureThreshold: 1
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /api/health/check
+            port: 8000
+          failureThreshold: 1
+          periodSeconds: 10
+    

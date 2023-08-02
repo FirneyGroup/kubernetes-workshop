@@ -27,7 +27,7 @@ spec:
 # Fulfilment Container
 ############################
       - image: {{ .Values.docker.image.fulfilment }}
-        imagePullPolicy: Always
+        imagePullPolicy: {{ .Values.docker.imagePullPolicy }}
         name: fulfilment
         resources:
           requests:

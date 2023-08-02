@@ -2,7 +2,10 @@
 variable "gcp_project_id" {}
 
 # GCP Billing ID used for project billing
-variable "gcp_billing_id" {}
+variable "gcp_billing_id" {
+  type        = string
+  default     = "012345-XXXXXX-123ABC"
+}
 
 variable "create_new_gcp_project" {
   type        = bool
@@ -115,6 +118,11 @@ variable "cluster_nodepool_max"  {
 variable "cluster_nodepool_preemptible"  {
   type        = bool
   default     = true
+}
+
+variable "cluster_nodepool_zones"  {
+  type        = list(string)
+  description = "GKE Cluster Nodepool zones"
 }
 
 # List of IPs to whitelist for Kubernetes Admin access
