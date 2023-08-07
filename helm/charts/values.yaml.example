@@ -3,8 +3,8 @@ name: "firney-workshop"
 namespace: "workshop"
 docker:
   image:
-    orders: "firneygroup/fastapi-workshop-fastapi-order:5ec95d15fb5fc4422adf8153ee4de5044343a7a5"
-    fulfilment: "firneygroup/fastapi-workshop-click-fulfilment:5ec95d15fb5fc4422adf8153ee4de5044343a7a5"
+    orders: "firneygroup/fastapi-workshop-fastapi-order:c2cb0684291b244c6398817d9e2a82e02d7742fb"
+    fulfilment: "firneygroup/fastapi-workshop-click-fulfilment:c2cb0684291b244c6398817d9e2a82e02d7742fb"
     rabbitmq: "rabbitmq:3-management"
 database:
   postgres:
