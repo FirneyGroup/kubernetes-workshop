@@ -22,7 +22,8 @@ resource "google_sql_database_instance" "instance" {
   region              = var.region
   database_version    = var.sql.version
   deletion_protection = false
-
+  depends_on          = [google_project_service.services]
+  
   settings {
     tier = var.sql.size
     ip_configuration {
