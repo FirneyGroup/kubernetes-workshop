@@ -9,14 +9,14 @@ docker:
 database:
   postgres:
     host: "<<< ADD POSTGRES IP >>>"
-    port: 5432
+    port: "5432"
     user: "workshop-user"
     password: "FirneyWorkshop!123"
     database: "workshop-db"
   redis:
     host: "<<< ADD REDIS IP >>>"
-    port: 6379
-    db: 1
+    port: "6379"
+    db: "1"
   rabbitmq:
     host: "firney-workshop-rabbitmq-svc.workshop.svc.cluster.local"
     user: "rabbitmq_user"
