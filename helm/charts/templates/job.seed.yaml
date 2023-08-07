@@ -1,0 +1,37 @@
+# This is a batch job that runs each
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.name }}-orders-job
+  namespace: {{ .Values.namespace }}
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 120
+  ttlSecondsAfterFinished: 300
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - image: {{ .Values.docker.image.orders }}
+        imagePullPolicy: {{ .Values.docker.imagePullPolicy }}
+        name: orders-database-seed
+        readinessProbe:
+          httpGet:
+            path: /api/seed
+            port: 8000
+          failureThreshold: 1
+          periodSeconds: 30
+          initialDelaySeconds: 30
+        resources:
+          requests:
+            memory: 0.5Gi
+            cpu: 500m
+          limits:
+            memory: 1Gi
+            cpu: 600m
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.name }}-app-configs
+        - secretRef:
+            name: {{ .Values.name }}-app-secrets

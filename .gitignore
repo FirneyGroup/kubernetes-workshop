@@ -8,3 +8,4 @@ helm/demo/
 terraform/.terraform/*
 *.code-workspace
 TODO
+NOTES
