@@ -30,5 +30,7 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_wi_sa_email"></a> [wi\_sa\_email](#output\_wi\_sa\_email) | n/a |
 <!-- END_TF_DOCS -->

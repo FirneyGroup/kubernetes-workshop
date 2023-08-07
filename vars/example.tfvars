@@ -3,10 +3,6 @@ gcp_project_id = "firney-workshop"
 gcp_region     = "europe-west2"
 gcp_zone       = "europe-west2-a"
 
-# get billing account id "gcloud alpha billing accounts list"
-# only needed when creating_new_gcp_project is set to true
-gcp_billing_id = "123abc-123abc-123abc"
-
 # SQL Instance and database details
 # https://cloud.google.com/sql/docs/postgres/instance-settings
 sql_name       = "workshop-sql-instance"
@@ -30,7 +26,10 @@ cluster_nodepool_name        = "workshop-nodepool"
 cluster_nodepool_min         = 1
 cluster_nodepool_max         = 5
 cluster_nodepool_preemptible = true
-
+cluster_nodepool_zones       = ["europe-west2-a",
+                                "europe-west2-b",
+                                "europe-west2-c"]
+                                
 # List of IPs to whitelist for Kubernetes Access
 # must be in CIDR format
 k8s_ip_whitelist = [{ 
