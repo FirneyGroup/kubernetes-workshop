@@ -9,3 +9,4 @@ terraform/.terraform/*
 *.code-workspace
 TODO
 NOTES
+.DS_Store
