@@ -38,7 +38,7 @@ cp example.tfvars dev.tfvars
 
 ### 3. Terraform Initialisation and Cluster Creation
 
-Navigate to the Terraform directory and run the following commands to initialize and create the cluster:
+Navigate to the Terraform directory and run the following commands to initialise and create the cluster:
 
 ```bash
 cd ../terraform
@@ -75,7 +75,7 @@ If you would like to test your new api you can downlaod our postman collection [
 
 ### Customisation
 
-You can customize various parameters of both the Kubernetes cluster and the FastAPI application by modifying the respective Terraform and Helm configuration files.
+You can customise various parameters of both the Kubernetes cluster and the FastAPI application by modifying the respective Terraform and Helm configuration files.
 
 ### Cleaning Up
 To destroy the created resources:
