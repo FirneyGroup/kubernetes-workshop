@@ -39,7 +39,7 @@ resource "google_service_account_iam_binding" "sql-wi-binding" {
     service_account_id = google_service_account.sa.name
     role               = "roles/iam.workloadIdentityUser"
     members            = [
-        "serviceAccount:${var.project}.svc.id.goog[default/default]",
+        "serviceAccount:${var.project}.svc.id.goog[workshop/wi-sa]",
     ]
     depends_on         = [ google_service_account.sa ]
 }

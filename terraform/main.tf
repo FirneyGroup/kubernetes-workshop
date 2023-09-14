@@ -108,3 +108,10 @@ module "workloadidentity" {
   project    = local.project_id
   depends_on = [ module.gke.cluster ]
 }
+
+module "secretsmanager" {
+  source                = "./modules/secretsmanager"
+  project               = local.project_id
+  wiServiceAccountEmail = module.workloadidentity.wi_sa_email
+  depends_on            = [ module.gke.cluster ]
+}

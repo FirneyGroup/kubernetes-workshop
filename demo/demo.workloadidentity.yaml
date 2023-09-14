@@ -1,0 +1,30 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: workshop
+  labels:
+    name: workshop
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: wi-sa
+  namespace: workshop
+  annotations:
+    iam.gke.io/gcp-service-account: "workloadidentity-sa@<<PROJECT NAME>>.iam.gserviceaccount.com"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gcloud-sdk
+  namespace: workshop
+spec:
+  serviceAccountName: wi-sa
+  containers:
+  - name: gcloud-sdk
+    image: google/cloud-sdk:latest
+    command:
+    - sleep
+    - "3600"
+    imagePullPolicy: IfNotPresent
+    restartPolicy: Always
