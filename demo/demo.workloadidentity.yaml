@@ -1,17 +1,17 @@
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: workshop
-  labels:
-    name: workshop
----
+# kind: Namespace
+# apiVersion: v1
+# metadata:
+#   name: workshop
+#   labels:
+#     name: workshop
+# ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: wi-sa
   namespace: workshop
   annotations:
-    iam.gke.io/gcp-service-account: "workloadidentity-sa@<<PROJECT NAME>>.iam.gserviceaccount.com"
+    iam.gke.io/gcp-service-account: "workloadidentity-sa@firney-workshop-396810.iam.gserviceaccount.com"
 ---
 apiVersion: v1
 kind: Pod
@@ -27,4 +27,4 @@ spec:
     - sleep
     - "3600"
     imagePullPolicy: IfNotPresent
-    restartPolicy: Always
+  restartPolicy: Always
